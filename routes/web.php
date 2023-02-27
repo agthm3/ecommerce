@@ -24,3 +24,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/product/create', [ProductController::class, 'create_product'])->name('create_product');
 Route::post('/product/create', [ProductController::class, 'store_product'])->name('store_product');
 Route::get('/product', [ProductController::class, 'index'])-> name('index_product');
+
+Route::get('/product/{product}', [ProductController::class, 'show'])->name('show_product');

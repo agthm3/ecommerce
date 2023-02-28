@@ -21,6 +21,10 @@
             <button type="submit">Hapus Product</button>
         </form>
     @endforeach
+    <hr>
+    <form action="{{ route('show_cart', $product) }}">
+        <button type="submit">Show All Cart</button>
+    </form>
 </body>
 
 </html>

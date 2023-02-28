@@ -32,4 +32,7 @@ Route::patch('/product/{product}/update', [ProductController::class, 'update'])-
 Route::delete('/product/{product}/delete', [ProductController::class, 'destroy'])->name('delete_product');
 
 //Cart 
-Route::post('/cart/{product}', [CartController::class, 'add_to_cart'])->name('add_to_cart');
+Route::middleware(['auth'])->group(function () {
+ Route::post('/cart/{product}', [CartController::class, 'add_to_cart'])->name('add_to_cart');
+ Route::get('/cart/{product}', [CartController::class, 'show'])->name('show_cart');
+});

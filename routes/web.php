@@ -28,3 +28,4 @@ Route::get('/product', [ProductController::class, 'index'])->name('index_product
 Route::get('/product/{product}', [ProductController::class, 'show'])->name('show_product');
 Route::get('/product/{product}/edit', [ProductController::class, 'edit'])->name('edit_product');
 Route::patch('/product/{product}/update', [ProductController::class, 'update'])->name('update_product');
+Route::delete('/product/{product}/delete', [ProductController::class, 'destroy'])->name('delete_product');

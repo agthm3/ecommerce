@@ -15,6 +15,11 @@
         <form action="{{ route('show_product', $product) }}">
             <button type="submit">Show Detail</button>
         </form>
+        <form action="{{ route('delete_product', $product) }}" method="post">
+            @csrf
+            @method('delete')
+            <button type="submit">Hapus Product</button>
+        </form>
     @endforeach
 </body>
 

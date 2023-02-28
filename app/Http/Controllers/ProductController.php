@@ -81,7 +81,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('edit_product', compact('product'));
     }
 
     /**
@@ -93,7 +93,30 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+       $request->validate([
+            'name' => 'required',
+            'price' => 'required', 
+            'stock' => 'required', 
+            'description' => 'required', 
+            'image' => 'required'
+        ]);
+
+        $file = $request->file('image');
+        $path = time() . '_' . $request->name . '.' . $file->getClientOriginalExtension();
+
+        Storage::disk('local')->put('public/'. $path, file_get_contents($file));
+
+        $product->update([
+            'name' => $request->name,
+            'price' => $request->price, 
+            'stock' => $request-> stock,
+            'description' => $request->description, 
+            'image' => $path
+        ]);
+
+
+
+        return Redirect::route('show_product', compact('product'));
     }
 
     /**

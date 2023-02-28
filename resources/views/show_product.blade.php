@@ -9,6 +9,11 @@
 </head>
 
 <body>
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <p>{{ $error }}</p>
+        @endforeach
+    @endif
     <a href="{{ route('index_product') }}">Kembali</a>
     <p>Name :{{ $product->name }}</p>
     <p>Description :{{ $product->description }}</p>

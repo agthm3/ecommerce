@@ -17,7 +17,7 @@ class CartController extends Controller
      */
     public function add_to_cart(Request $request, Product $product){
         $request->validate([
-            'amount' => 'required|gte:1',
+            'amount' => 'required|gte:1|lte:'.$product->stock,
         ]);
 
         
@@ -94,7 +94,15 @@ class CartController extends Controller
      */
     public function update(Request $request, Cart $cart)
     {
-        //
+        $request->validate([
+            'amount' => 'required|gte:1|lte:'.$cart->product->stock,
+        ]);
+
+        $cart->update([
+            'amount'=> $request->amount
+        ]);
+
+        return Redirect::route('show_cart', compact('cart'));
     }
 
     /**

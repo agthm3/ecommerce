@@ -19,7 +19,7 @@ class CartController extends Controller
         $user_id = Auth::id();
         $product_id = $product->id;
         $existing_cart = Cart::where('product_id', $product_id)
-            ->where('user_id', $user_id)->first();
+            ->where('user_id', $user_id)->first(); 
 
         if($existing_cart == null){
             $request->validate([
@@ -38,9 +38,6 @@ class CartController extends Controller
                 'amount' => $existing_cart->amount + $request->amount
             ]);
         }
-
-
-
 
 
         return Redirect::route('show_cart');

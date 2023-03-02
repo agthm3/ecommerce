@@ -33,6 +33,11 @@
     <form action="{{ route('index_product') }}">
         <button type="submit">Kembali</button>
     </form>
+    <form action="{{ route('checkout') }}" method="post">
+        @csrf
+        @method('post')
+        <button type="submit">Checkout</button>
+    </form>
 </body>
 
 </html>

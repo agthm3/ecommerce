@@ -81,7 +81,9 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        $orders = Order::all();
+
+        return view('index_order', compact('orders'));
     }
 
     /**

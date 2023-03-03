@@ -14,6 +14,10 @@
             <p>{{ $error }}</p>
         @endforeach
     @endif
+    @php
+        $total_price = 0;
+    @endphp
+
     @foreach ($carts as $cart)
         <img src="{{ url('/storage' . $cart->product->image) }}" height="100px" alt="">
         <p>Name : {{ $cart->product->name }}</p>
@@ -29,7 +33,11 @@
             @method('delete')
             <button type="submit"> Hapus</button>
         </form>
+        @php
+            $total_price = $total_price + $cart->product->price * $cart->amount;
+        @endphp
     @endforeach
+    <p>Total Harga Rp{{ number_format($total_price) }}</p>
     <form action="{{ route('index_product') }}">
         <button type="submit">Kembali</button>
     </form>

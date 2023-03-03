@@ -19,9 +19,11 @@
         @if ($order->is_paid == true)
             <p>Terbayar</p>
         @else
-            Belum Bayar
+            <p style="color: red; font-weight: bold">Belum Bayar</p>
 
-            <a href="{{ url('storage/' . $order->payment_receipt) }}" height="100px" alt="">Lihat resi</a>
+            @if ($order->payment_receipt == true)
+                <a href="{{ url('storage/' . $order->payment_receipt) }}" height="100px" alt="">Lihat resi</a>
+            @endif
             <form action="{{ route('confirm_payment', $order) }}" method="post">
                 @csrf
                 @method('post')

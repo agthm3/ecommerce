@@ -4,6 +4,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Middleware\Admin;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,15 +40,17 @@ Route::middleware(['auth'])->group(function () {
  Route::get('/cart', [CartController::class, 'show'])->name('show_cart');
  Route::patch('/cart/{cart}', [CartController::class, 'update'])->name('update_cart');
  Route::delete('/cart/{cart}/delete', [CartController::class, 'destroy'])->name('delete_cart');
-
-
- Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout');
  Route::get('/order', [OrderController::class, 'show'])->name('index_order');
- Route::get('/order/{order}', [OrderController::class, 'show_order'])->name('show_order');
+ Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout');
 
- Route::post('/order/{order}/pay', [OrderController::class, 'submit_payment_receipt'])->name('submit_payment_receipt');
- Route::post('/order/{order}/confimr', [OrderController::class, 'confirm_payment'])->name('confirm_payment');
 
  Route::get('/profile', [ProfileController::class, 'show_profile'])->name('show_profile');
  Route::post('/profile', [ProfileController::class, 'edit_profile'])->name('edit_profile');
+
+ Route::middleware(['admin'])->group(function(){
+
+    Route::get('/order/{order}', [OrderController::class, 'show_order'])->name('show_order');
+    Route::post('/order/{order}/pay', [OrderController::class, 'submit_payment_receipt'])->name('submit_payment_receipt');
+    Route::post('/order/{order}/confimr', [OrderController::class, 'confirm_payment'])->name('confirm_payment');
+ });
 });

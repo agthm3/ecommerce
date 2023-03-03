@@ -81,14 +81,24 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Order $order)
-    {
-        $orders = Order::all();
-
+    {   
+        $user = Auth::user();
+        $is_admin = $user->is_admin;
+        if ($is_admin) {
+            $orders = Order::all();
+        }else{
+            $orders = Order::where('user_id', $user->id)->get();
+        }
+        
         return view('index_order', compact('orders'));
     }
 
     public function show_order(Order $order){
-        return view('show_order', compact('order'));
+        $user = Auth::user();
+        if ($user->is_admin || $order->user->id == $user->id) {
+            return view('show_order', compact('order'));
+        }
+        return Redirect::back();
     }
 
     public function submit_payment_receipt(Order $order, Request $request){

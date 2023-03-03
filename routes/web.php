@@ -41,6 +41,8 @@ Route::middleware(['auth'])->group(function () {
  Route::patch('/cart/{cart}', [CartController::class, 'update'])->name('update_cart');
  Route::delete('/cart/{cart}/delete', [CartController::class, 'destroy'])->name('delete_cart');
  Route::get('/order', [OrderController::class, 'show'])->name('index_order');
+ Route::get('/order/{order}', [OrderController::class, 'show_order'])->name('show_order');
+ Route::post('/order/{order}/pay', [OrderController::class, 'submit_payment_receipt'])->name('submit_payment_receipt');
  Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout');
 
 
@@ -48,9 +50,6 @@ Route::middleware(['auth'])->group(function () {
  Route::post('/profile', [ProfileController::class, 'edit_profile'])->name('edit_profile');
 
  Route::middleware(['admin'])->group(function(){
-
-    Route::get('/order/{order}', [OrderController::class, 'show_order'])->name('show_order');
-    Route::post('/order/{order}/pay', [OrderController::class, 'submit_payment_receipt'])->name('submit_payment_receipt');
-    Route::post('/order/{order}/confimr', [OrderController::class, 'confirm_payment'])->name('confirm_payment');
+    Route::post('/order/{order}/confirm', [OrderController::class, 'confirm_payment'])->name('confirm_payment');
  });
 });

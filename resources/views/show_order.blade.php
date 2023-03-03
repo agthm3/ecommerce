@@ -15,6 +15,16 @@
         <p>Nama produk : {{ $transaction->product->name }}</p>
         <p>Amount : {{ $transaction->amount }}</p>
     @endforeach
+
+    @if ($order->is_paid == false && $order->payment_receipt == null)
+        <form action="{{ route('submit_payment_receipt', $order) }}" method="post" enctype="multipart/form-data">
+            @csrf
+            @method('post')
+            <label for="">Masukkan Resi</label>
+            <input type="file" name="payment_receipt">
+            <button type="submit">Kirim Resi</button>
+        </form>
+    @endif
 </body>
 
 </html>

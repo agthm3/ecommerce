@@ -3,6 +3,7 @@
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,4 +47,7 @@ Route::middleware(['auth'])->group(function () {
 
  Route::post('/order/{order}/pay', [OrderController::class, 'submit_payment_receipt'])->name('submit_payment_receipt');
  Route::post('/order/{order}/confimr', [OrderController::class, 'confirm_payment'])->name('confirm_payment');
+
+ Route::get('/profile', [ProfileController::class, 'show_profile'])->name('show_profile');
+ Route::post('/profile', [ProfileController::class, 'edit_profile'])->name('edit_profile');
 });
